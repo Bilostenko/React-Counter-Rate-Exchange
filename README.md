@@ -1,4 +1,4 @@
-
+![Screenshot](https://github.com/Bilostenko/react_state_task/blob/master/react_state-img.png)
  1) The initial counter value passed through props.
 
 
