@@ -8,53 +8,58 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      counter: 10,
-      counterInit: null
+      num: 10,
+      counterInit : this.props.counter
     }
-  }
-  componentDidMount() {
-    this.setState({
-      counterInit: this.state.counter
-    });
   }
 
+  // Используйте только стрелочную форму методов
+  // Почему? Подробный ответ будет в следующем уроке
   inc = () => {
-    if (this.state.counter <= 29) {
-      this.setState({
-        counter: this.state.counter + 1
-      })
+    if (this.state.num < 50) {
+      return (
+        this.setState({
+          num: this.state.num + 1
+        })
+      )
     }
   }
+
   dec = () => {
-    if (this.state.counter >= -29) {
-      this.setState({
-        counter: this.state.counter - 1
-      })
+    if (this.state.num > -50) {
+      return (
+        this.setState({
+          num: this.state.num - 1
+        })
+      )
     }
   }
-   rnd = () => {
+
+  rnd = () =>{
+    return (this.setState({
+      num: Math.floor(Math.random() * (50 - (-50)) + (-50))
+    }))
+  }
+
+  init = () =>{
     this.setState({
-      counter: Math.floor(Math.random() * (50 - (-50)) + (-50))
+      num: this.state.counterInit
     })
   }
-  reset = () =>{
-    this.setState({
-      counter: this.state.counterInit
-    })
-  }
+
 
   render() {
     return (
       <div className="app">
-        <div className="counter">{this.state.counter}</div>
+        <div className="counter">{this.state.num}</div>
         <div className="controls">
           <button onClick={this.inc}>INC</button>
           <button onClick={this.dec}>DEC</button>
           <button onClick={this.rnd}>RND</button>
-          <button onClick={this.reset}>RESET</button>
+          <button onClick={this.init}>RESET</button>
         </div>
       </div>
-    );
+    )
   }
 
 }
