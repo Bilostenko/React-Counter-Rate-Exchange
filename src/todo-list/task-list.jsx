@@ -44,7 +44,8 @@ class TaskList extends Component {
           <input
             type="text"
             className="task_list-input"
-            ref={this.newMessageElement}></input>
+            ref={this.newMessageElement}
+            placeholder="Type your message"></input>
           <button className="add-task" onClick={this.handleMessage}>Add</button>
         </div>
         <ul className="task">
