@@ -1,29 +1,65 @@
 import React from "react"
+import { Component } from 'react';
 import "./task-list.css"
 
-// addTask = () =>{
-//   return(
 
-//   )
-// }
 
-const TaskList = () => {
-  return (
-    <div className="task_list-wrapper">
-      <h1>Todo list</h1>
-      <div className="task-info">
-        <input type="text" className="task_list-input" />
-        {/* <button className="add-task" onClick={addTask}>Add</button> */}
+class TaskList extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: []
+    }
+    this.newMessageElement = React.createRef()
+  }
+
+  handleMessage = () => {
+    let message = this.newMessageElement.current.value;
+
+    if (message) {
+      var messageArr = [...this.state.message, message]
+      this.setState({
+        message: messageArr
+      });
+      this.newMessageElement.current.value = ""
+    }
+  }
+
+  deleteItem = (index) => {
+    let updateMessage = [...this.state.message]
+    updateMessage.splice(index, 1)
+
+    this.setState({
+      message: updateMessage
+    })
+  }
+
+
+  render() {
+    return (
+      <div className="task_list-wrapper">
+        <h1>Todo list</h1>
+        <div className="task-info">
+          <input
+            type="text"
+            className="task_list-input"
+            ref={this.newMessageElement}></input>
+          <button className="add-task" onClick={this.handleMessage}>Add</button>
+        </div>
+        <ul className="task">
+          {this.state.message.map((message, index) => {
+            return (
+              <li className="task-text" key={index}>{message}
+                <button className="delete-task" onClick={() => this.deleteItem(index)}>Delete</button>
+              </li>
+            )
+          })}
+        </ul>
       </div>
-      <div className="task">
-        <h2 className="task-text">test text</h2>
-        <button className="delete-task">Delete</button>
-      </div>
 
-
-    </div>
-  )
+    )
+  }
 }
 
 export default TaskList
