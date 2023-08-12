@@ -9,10 +9,6 @@
 // Використовуйте стан для збереження значень температур у компоненті.
 // Це завдання допоможе вам вивчити, як використовувати setState() для оновлення відповідних частин стану, а також для взаємодії між різними полями введення та відображенням оновлених даних.
 
-// const fahrenheitValue = (celsiusValue * 9 / 5) + 32;
-// const celsiusValue = (fahrenheitValue - 32) * 5 / 9;
-// івент.таргет.валуе
-
 import React from "react";
 import { Component } from "react";
 import "./temperatureConverter.css"
@@ -21,34 +17,43 @@ class TemperatureConverter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      celsius: 0,
-      fahrenheit: 0
-    }
-    this.newFahrenheitValue = React.createRef()
+      celsius: '',
+      fahrenheit: ''
+    };
   }
 
-  handleFahrenheitChange = () => {
-    let currentFahrenheitValue = this.newFahrenheitValue.current.value;
-    let celsiusValue = ((currentFahrenheitValue - 32) * 5 / 9).toFixed(2);
+  handleCelsiusChange = (event) => {
+    const celsiusValue = event.target.value;
+    const fahrenheitValue = (celsiusValue * 9 / 5 + 32).toFixed(2);
 
-      this.setState({
-        celsius: celsiusValue
-      })
+    this.setState({
+      celsius: celsiusValue,
+      fahrenheit: fahrenheitValue
+    });
+  };
 
-  }
+  handleFahrenheitChange = (event) => {
+    const fahrenheitValue = event.target.value;
+    const celsiusValue = ((fahrenheitValue - 32) * 5 / 9).toFixed(2);
+
+    this.setState({
+      celsius: celsiusValue,
+      fahrenheit: fahrenheitValue
+    });
+  };
 
   render() {
     return (
       <div className="converter-container">
-        <h2 className="converter-title">Конвертер градусів</h2>
+        <h2 className="converter-title">Temperature converter</h2>
         <div className="input-container">
+          <span>Degrees Celsius &#8451;</span>
           <input
             type="number"
             value={this.state.celsius}
-            ref={this.newCelsiusValue}
             onChange={this.handleCelsiusChange}
-            placeholder="Градуси Цельсія"
-            className="input-celsius" />
+            className="input-celsius"
+          />
 
           <div className="arrows">
             <div className="arrow-icon">&#129154;</div>
@@ -57,17 +62,14 @@ class TemperatureConverter extends Component {
 
           <input
             type="number"
-            // value={this.fahrenheit}
-            ref={this.newFahrenheitValue}
+            value={this.state.fahrenheit}
             onChange={this.handleFahrenheitChange}
-            placeholder="Градуси Фаренгейта"
-            className="input-fahrenheit" />
+            className="input-fahrenheit"
+          />
+          <span>Degrees Fahrenheit &#8457;</span>
         </div>
       </div>
-
-
-
-    )
+    );
   }
 }
 
