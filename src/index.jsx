@@ -7,7 +7,7 @@ import Counter from './counter/counter';
 const root = ReactDOM.createRoot(document.getElementById('app'));
 root.render(
   <React.StrictMode>
-    <Counter  counter={10}/>
+    <Counter />
   </React.StrictMode>
 );
 

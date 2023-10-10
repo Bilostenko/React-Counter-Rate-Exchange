@@ -6,65 +6,53 @@
 // 4) RESET сбрасывает счетчик в 0 или в начальное значение из пропсов. Выберите один из вариантов
 
 import React from 'react';
-import { Component } from 'react';
+import { useState } from 'react';
 import './counter.css';
 
 
 
-class Counter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      num: 10,
-      counterInit : this.props.counter
-    }
-  }
-  inc = () => {
-    if (this.state.num < 50) {
-      return (
-        this.setState({
-          num: this.state.num + 1
-        })
-      )
-    }
-  }
+const Counter = (props) => {
 
-  dec = () => {
-    if (this.state.num > -50) {
-      return (
-        this.setState({
-          num: this.state.num - 1
-        })
-      )
-    }
-  }
+  const [num, setNum] = useState(10);
 
-  rnd = () =>{
-    return (this.setState({
-      num: Math.floor(Math.random() * (50 - (-50)) + (-50))
-    }))
-  }
-
-  init = () =>{
-    this.setState({
-      num: this.state.counterInit
-    })
-  }
-
-
-  render() {
+  function inc() {
     return (
-      <div className="app">
-        <div className="counter">{this.state.num}</div>
-        <div className="controls">
-          <button onClick={this.inc}>INC</button>
-          <button onClick={this.dec}>DEC</button>
-          <button onClick={this.rnd}>RND</button>
-          <button onClick={this.init}>RESET</button>
-        </div>
-      </div>
+      setNum(num + 1)
     )
   }
+
+  function dec() {
+    return(
+      setNum(num - 1)
+    )
+  }
+
+  function rnd() {
+    return(
+      setNum(Math.floor(Math.random() * 100 - 50))
+    )
+  }
+
+function  init() {
+    return(
+      setNum(10)
+    )
+  }
+
+
+
+  return (
+    <div className="app">
+      <div className="counter">{num}</div>
+      <div className="controls">
+        <button onClick={inc}>INC</button>
+        <button onClick={dec}>DEC</button>
+        <button onClick={rnd}>RND</button>
+        <button onClick={init}>RESET</button>
+      </div>
+    </div>
+  )
+
 
 }
 
